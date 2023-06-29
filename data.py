@@ -21,7 +21,7 @@ def read_pkmn_by_pkmn_type(pkmn_type):
 # This function retrieves 1 Pokemon by Pokemon ID
 def read_pkmn_by_pkmn_id(pkmn_id):
     conn, cur = connect_to_db(db_path)
-    query = 'SELECT * FROM Pokemon WHERE id = ?'
+    query = 'SELECT * FROM Pokemon WHERE pkmn_id = ?'
     values = (pkmn_id,)
     result = cur.execute(query, values).fetchone()
     conn.close()
@@ -30,8 +30,9 @@ def read_pkmn_by_pkmn_id(pkmn_id):
 # This function inserts 1 Pokemon data
 def insert_pkmn(pkmn_data):
     conn, cur = connect_to_db(db_path)
-    query = 'INSERT INTO Pokemon (pkmn_type, name, description, url) VALUES (?, ?, ?, ?)'
-    values = (pkmn_data['pkmn_type'], pkmn_data['name'], pkmn_data['description'], pkmn_data['url'])
+    query = 'INSERT INTO Pokemon (pkmn_type, pkmn_name, pkmn_desc, pkmn_url) VALUES (?, ?, ?, ?)'
+    values = (pkmn_data['pkmn_type'], pkmn_data['pkmn_name'], pkmn_data['pkmn_desc'], pkmn_data['pkmn_url'])
+    print(values)
     cur.execute(query, values)
     conn.commit()
     conn.close()
@@ -39,16 +40,28 @@ def insert_pkmn(pkmn_data):
 # This function updates a record
 def update_pkmn(pkmn_data):
     conn, cur = connect_to_db(db_path)
-    query = "UPDATE Pokemon SET pkmn_type=?, name=?, description=?, url=? WHERE id=?"
-    values = (pkmn_data['pkmn_type'], pkmn_data['name'], pkmn_data['description'], pkmn_data['url'], pkmn_data['pkmn_id'])
-    cur.execute(query, values)
+    values = (
+        pkmn_data['pkmn_type'],
+        pkmn_data['pkmn_name'],
+        pkmn_data['pkmn_desc'],
+        pkmn_data['pkmn_url'],
+        pkmn_data['pkmn_id']
+    )
+    conn.execute(
+        """
+        UPDATE Pokemon
+        SET pkmn_type = ?, pkmn_name = ?, pkmn_desc = ?, pkmn_url = ?
+        WHERE pkmn_id = ?
+        """,
+        values
+    )
     conn.commit()
     conn.close()
 
 # This function deletes a record
 def delete_pkmn(pkmn_id):
     conn, cur = connect_to_db(db_path)
-    query = "DELETE FROM Pokemon WHERE id = ?"
+    query = "DELETE FROM Pokemon WHERE pkmn_id = ?"
     values = (pkmn_id,)
     cur.execute(query, values)
     conn.commit()

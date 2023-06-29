@@ -1,13 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Register a Pokemon to the Pokedex!</h1>
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    h1 {
+        color: #ff1f1f;
+        font-size: 36px;
+        margin-top: 40px;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #ff1f1f;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 20px;
+        transition: background-color 0.3s;
+    }
+
+    a:hover {
+        background-color: #ff4242;
+    }
+</style>
+
+
+<h1>Modify a Pokemon in the Pokedex!</h1>
 <form action="{{ url_for('update') }}" method="post">
-    <input type="hidden" name="pkmn_id" value="{{ pkmn.id }}">
+    <input type="hidden" name="pkmn_id" value="{{ pkmn.pkmn_id }}">
     <label for="pkmn_type">Type of Pokemon:</label>
     <select name="pkmn_type" id="pkmn_type" required>
         <option disabled selected value>...</option>
-        {% if pkmn.pkdex_type == "bug" %}
+        {% if pkmn.pkmn_type == "bug" %}
         <option value="bug" selected>Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -23,7 +61,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.pkdex_type == "dragon" %}
+        {% elif pkmn.pkmn_type == "dragon" %}
         <option value="bug">Bug</option>
         <option value="dragon" selected>Dragon</option>
         <option value="electric">Electric</option>
@@ -39,7 +77,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "electric" %}
+        {% elif pkmn.pkmn_type == "electric" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric" selected>Electric</option>
@@ -55,7 +93,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "fighting" %}
+        {% elif pkmn.pkmn_type == "fighting" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -71,7 +109,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "fire" %}
+        {% elif pkmn.pkmn_type == "fire" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -87,7 +125,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "flying" %}
+        {% elif pkmn.pkmn_type == "flying" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -103,7 +141,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "ghost" %}
+        {% elif pkmn.pkmn_type == "ghost" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -119,7 +157,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "grass" %}
+        {% elif pkmn.pkmn_type == "grass" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -135,7 +173,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "ground" %}
+        {% elif pkmn.pkmn_type == "ground" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -151,7 +189,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "ice" %}
+        {% elif pkmn.pkmn_type == "ice" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -167,7 +205,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "normal" %}
+        {% elif pkmn.pkmn_type == "normal" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -183,7 +221,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "poison" %}
+        {% elif pkmn.pkmn_type == "poison" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -199,7 +237,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "psychic" %}
+        {% elif pkmn.pkmn_type == "psychic" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -215,7 +253,7 @@
         <option value="psychic" selected>Psychic</option>
         <option value="rock">Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "rock" %}
+        {% elif pkmn.pkmn_type == "rock" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -231,7 +269,7 @@
         <option value="psychic">Psychic</option>
         <option value="rock" selected>Rock</option>
         <option value="water">Water</option>
-        {% elif pkmn.animal_type == "water" %}
+        {% elif pkmn.pkmn_type == "water" %}
         <option value="bug">Bug</option>
         <option value="dragon">Dragon</option>
         <option value="electric">Electric</option>
@@ -249,11 +287,12 @@
         <option value="water" selected>Water</option>
         {% endif %}
     </select><br><br>
-    <label for="pkmn_name">Name of Pokemon:</label>
-    <input type="text" name="pkmn_name" id="pkmn_name" value="{{ pkmn.name }}" required><br><br>
+    <label for="pkmn_name">Name:</label>
+    <input type="text" name="pkmn_name" value="{{ pkmn.pkmn_name }}"><br><br>
+    <label for="pkmn_desc">Description:</label>
+    <textarea name="pkmn_desc">{{ pkmn.pkmn_desc }}</textarea><br><br>
     <label for="pkmn_url">Image URL:</label>
-    <input type="url" name="pkmn_url" id="pkmn_url" value="{{ pkmn.url }}"><br>
-    <textarea name="pkmn_desc" cols="30" rows="10">{{ pkmn.description }}</textarea><br>
-    <input type="submit" value="Update!">
+    <input type="text" name="pkmn_url" value="{{ pkmn.pkmn_url }}"><br><br>
+    <input type="submit" value="Update">
 </form>
 {% endblock %}
